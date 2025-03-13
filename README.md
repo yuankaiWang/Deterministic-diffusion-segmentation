@@ -1,53 +1,52 @@
-Autoencoder Training for Medical Image Reconstruction
+# Autoencoder Training for Medical Image Reconstruction
 
-This repository contains an implementation of an Autoencoder-based Latent Diffusion Model for medical image reconstruction. The model is trained on 2D slices extracted from medical imaging datasets such as BraTS.
+This repository contains an implementation of an **Autoencoder-based Latent Diffusion Model** for medical image reconstruction. The model is trained on 2D slices extracted from medical imaging datasets such as **BraTS**.
 
-📌 Features
+## 📌 Features
+- **Autoencoder with Variational KL Regularization**
+- **Perceptual Loss & Adversarial Training Support**
+- **Customizable L1/L2 Loss for Reconstruction**
+- **Automatic Model Checkpointing with Best Loss Tracking**
+- **TensorBoard Logging for Monitoring Training Progress**
 
-Autoencoder with Variational KL Regularization
+---
 
-Perceptual Loss & Adversarial Training Support
-
-Customizable L1/L2 Loss for Reconstruction
-
-Automatic Model Checkpointing with Best Loss Tracking
-
-TensorBoard Logging for Monitoring Training Progress
-
-🚀 Setup
-
-1️⃣ Clone the repository
-
+## 🚀 Setup
+### 1️⃣ Clone the repository
+```bash
 git clone https://github.com/yourusername/autoencoder-medical.git
 cd autoencoder-medical
+```
 
-2️⃣ Install dependencies
-
+### 2️⃣ Install dependencies
 Ensure you have Python 3.8+ and install required libraries:
-
+```bash
 pip install -r requirements.txt
+```
 
-3️⃣ Prepare the dataset
-
-Place your BraTS dataset or any medical image dataset in the dataset/ folder. The structure should be:
-
+### 3️⃣ Prepare the dataset
+Place your **BraTS dataset** or any medical image dataset in the `dataset/` folder. The structure should be:
+```bash
 dataset/
   ├── Task01_BrainTumour/
   │   ├── imagesTr/
   │   ├── labelsTr/
   │   ├── dataset.json
+```
+Ensure that `dataset.json` is properly formatted to reference available images.
 
-Ensure that dataset.json is properly formatted to reference available images.
+---
 
-🏋️‍♂️ Training the Autoencoder
-
+## 🏋️‍♂️ Training the Autoencoder
 Run the following command to train the Autoencoder:
-
+```bash
 python train_autoencoder.py --config config/config_train.json
+```
 
-Training Configuration (config/config_train.json):
-
-"autoencoder_train": {
+**Training Configuration (`config/config_train.json`):**
+```json
+{
+  "autoencoder_train": {
     "batch_size": 1,
     "patch_size": [240, 240],
     "lr": 2.5e-5,
@@ -56,48 +55,72 @@ Training Configuration (config/config_train.json):
     "recon_loss": "l2",
     "max_epochs": 1000,
     "val_interval": 1
+  }
 }
+```
+---
 
-📊 Monitoring Training
-
-TensorBoard Visualization
-
+## 📊 Monitoring Training
+### TensorBoard Visualization
 To monitor training progress, launch TensorBoard:
-
+```bash
 tensorboard --logdir=logs/
+```
+Open **http://localhost:6006/** in your browser to visualize:
+- Loss curves (`val_recon_loss`)
+- Reconstructed images (`val_recon` vs. `val_img`)
 
-Open http://localhost:6006/ in your browser to visualize:
+---
 
-Loss curves (val_recon_loss)
+## 📌 Model Saving Strategy
+### ✅ Save Model Checkpoints
+- The **latest model** is always saved as:
+  ```bash
+  trained_weights/diffusion_2d/autoencoder_last.pt
+  trained_weights/diffusion_2d/discriminator_last.pt
+  ```
+- The **best model (lowest loss)** is saved as:
+  ```bash
+  trained_weights/diffusion_2d/autoencoder.pt
+  trained_weights/diffusion_2d/discriminator.pt
+  ```
 
-Reconstructed images (val_recon vs. val_img)
-
-📌 Model Saving Strategy
-
-✅ Save Model Checkpoints
-
-The latest model is always saved as:
-
-trained_weights/diffusion_2d/autoencoder_last.pt
-trained_weights/diffusion_2d/discriminator_last.pt
-
-The best model (lowest loss) is saved as:
-
-trained_weights/diffusion_2d/autoencoder.pt
-trained_weights/diffusion_2d/discriminator.pt
-
-✅ Save Best Reconstruction Images
-
-Reconstructed images are saved only when validation loss improves:
-
+### ✅ Save Best Reconstruction Images
+Reconstructed images are saved **only when validation loss improves**:
+```bash
 reconstruction_results/
   ├── best_epoch_12.png
   ├── best_epoch_34.png
+```
+---
 
-🏁 Running Inference
-
+## 🏁 Running Inference
 After training, you can generate reconstructions with:
-
+```bash
 python inference.py --config config/config_infer.json
+```
+This will load `autoencoder.pt` and generate outputs.
 
-This will load autoencoder.pt and generate outputs.
+---
+
+## 📜 Citation
+If you use this work, please consider citing:
+```
+@article{your_paper,
+  title={Autoencoder-Based Latent Diffusion for Medical Image Segmentation},
+  author={Your Name},
+  year={2025}
+}
+```
+
+---
+
+## 🤝 Contributions
+Feel free to submit **issues** and **pull requests** to improve this repository!
+
+---
+
+## 📧 Contact
+For any questions, reach out to **your.email@example.com**
+
+🚀 Happy training!
