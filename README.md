@@ -121,6 +121,6 @@ Feel free to submit **issues** and **pull requests** to improve this repository!
 ---
 
 ## 📧 Contact
-For any questions, reach out to **your.email@example.com**
+For any questions, reach out to **psywa156@liverpool.ac.uk**
 
 🚀 Happy training!
